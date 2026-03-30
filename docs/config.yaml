@@ -1,0 +1,6 @@
+title: Kubernetes 技术学习笔记
+description: Kubernetes 技术学习笔记
+baseurl: "/Kubernetes-Learning-Note"        # 如果是项目 Pages
+url: "https://ziyuedai.github.io"  # 替换为你的 GitHub Pages 地址
+theme: minima                 # 官方主题，也可以换其他主题
+markdown: kramdown
