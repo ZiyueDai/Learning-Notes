@@ -4,5 +4,5 @@
 
 ---
 # Tips
-# [1.CPU Management](/Linux-Shell/Tips/CPU Management/README.md)
-# [2.Disk Management](/Linux-Shell/Tips/Disk Management/README.md)
+# [1.CPU Management](/Linux-Shell/Tips/CPU_Management/README.md)
+# [2.Disk Management](/Linux-Shell/Tips/Disk_Management)
