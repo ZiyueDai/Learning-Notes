@@ -25,4 +25,4 @@
 
 ## [8.节点之间实现免密登录(SSH公钥认证)](/Linux-Shell/Tips/节点之间实现免密登录(SSH公钥认证))
 
-## [9.Git Operations](Linux-Shell/Tips/Git_Operations)
+## [9.Git Operations](/Linux-Shell/Tips/Git_Operations)
