@@ -174,4 +174,47 @@ github-learning-notes   https://github.com/ZiyueDai/Learning-Notes.git (push)
 
 ---
 
-## 5. 测试： 拉取远程
+## 5. 重命名本地Git仓库分支（Branch）
+
+切换到 master 分支（如果不在的话）：
+
+```bash
+git checkout master
+```
+
+把它重命名为 main：
+
+```bash
+git branch -m master main
+```
+
+> -m 就是 move/rename 的意思。
+
+验证：
+
+```bash
+git branch
+```
+
+现在你应该看到 * main 了。
+
+---
+
+## 6. 测试：拉取远程仓库到本地
+
+```bash
+git pull gitee-learning-notes main
+```
+
+查看本地的仓库是否已经和远程仓库同步。
+
+---
+
+## 7. 测试：将本地仓库上传到远程仓库
+
+```bash
+git push gitee-learning-notes main
+```
+
+查看在本地仓库中更新的内容是否已经同步到远程仓库。
+
