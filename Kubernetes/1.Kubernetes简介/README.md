@@ -8,17 +8,21 @@
 
 ### 1.1.1 Control Plane Components
 1. kube-apiserver
+
    该组件负责公开了 Kubernetes API，负责处理接受请求的工作。 API server 是 Kubernetes 控制平面的前端。
    提供了资源操作的唯一入口，并提供认证、授权、访问控制、API 注册和发现等机制。
 
-2. etcd
+3. etcd
+
    etcd 保存了整个集群的状态。
 
-3. kube-scheduler
+5. kube-scheduler
+
    kube-scheduler 是控制平面的组件， 负责监视新创建的、未指定运行节点的 Pod，并选择节点来让 Pod 在上面运行。
    调度决策考虑的因素包括单个 Pod 及多个 Pod 集合的资源需求、 软硬件及策略约束、亲和性及反亲和性规范、数据位置、工作负载间的干扰及最后时限。
 
-4. kube-controller-manager
+7. kube-controller-manager
+
    kube-controller-manager 负责维护集群的状态，比如故障检测、自动扩展、滚动更新等。
    控制器有许多不同类型。以下是一些例子：
    - Node 控制器：负责在节点出现故障时进行通知和响应
@@ -26,22 +30,26 @@
    - EndpointSlice 控制器：填充 EndpointSlice 对象（以提供 Service 和 Pod 之间的链接）。
    - ServiceAccount 控制器：为新的命名空间创建默认的 ServiceAccount。
 
-5. cloud-controller-manager
+9. cloud-controller-manager
+
    一个 Kubernetes 控制平面组件， 嵌入了特定于云平台的控制逻辑。 云控制器管理器（Cloud Controller Manager）允许将你的集群连接到云提供商的 API 之上， 并将与该云平台交互的组件同与你的集群交互的组件分离开来。
    cloud-controller-manager 仅运行特定于云平台的控制器。 因此如果你在自己的环境中运行 Kubernetes，或者在本地计算机中运行学习环境， 所部署的集群不包含云控制器管理器。
 
 ### 1.1.2 Worker Plane Components
 1. kubelet
+
    kubelet 会在集群中每个节点（node）上运行。 它保证容器（containers）都运行在 Pod 中， 负责维持容器的生命周期，同时也负责 Volume（CVI）和网络（CNI）的管理；
    kubelet 接收一组通过各类机制提供给它的 PodSpec，确保这些 PodSpec 中描述的容器处于运行状态且健康。 kubelet 不会管理不是由 Kubernetes 创建的容器。
 
-2. kube-proxy
+3. kube-proxy
+
    kube-proxy 是集群中每个节点（node）上所运行的网络代理， 实现 Kubernetes 服务（Service） 概念的一部分, 负责为 Service 提供 cluster 内部的服务发现和负载均衡
    kube-proxy 维护节点上的一些网络规则， 这些网络规则会允许从集群内部或外部的网络会话与 Pod 进行网络通信。
    如果操作系统提供了可用的数据包过滤层，则 kube-proxy 会通过它来实现网络规则。 否则，kube-proxy 仅做流量转发。
    如果你使用网络插件为 Service 实现本身的数据包转发， 并提供与 kube-proxy 等效的行为，那么你不需要在集群中的节点上运行 kube-proxy。
 
-3. 容器运行时
+5. 容器运行时
+
    这个基础组件使 Kubernetes 能够有效运行容器。 它负责管理 Kubernetes 环境中容器的执行和生命周期。
    Kubernetes 支持许多容器运行环境，例如 containerd、 CRI-O 以及 Kubernetes CRI (容器运行环境接口) 的其他任何实现。
 
