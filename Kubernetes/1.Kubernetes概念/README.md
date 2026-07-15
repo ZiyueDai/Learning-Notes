@@ -1,12 +1,16 @@
-# 1. Cluster Architectuer
+# 1. 概述
+
+## 1.1 Kubernetes组件
+
+### 1.1.1 Cluster Architecture
 
 ![输入图片说明](image/architecture.png)
 
-## 1.1 核心组件
+###  1.1.2 核心组件
 ![输入图片说明](image/key-component.png)
 ![输入图片说明](image/kubernetes-cluster-architecture.svg)
 
-### 1.1.1 Control Plane Components
+#### 1.1.1.1 Control Plane Components
 1. kube-apiserver
 
    该组件负责公开了 Kubernetes API，负责处理接受请求的工作。 API server 是 Kubernetes 控制平面的前端。
@@ -35,7 +39,7 @@
    一个 Kubernetes 控制平面组件， 嵌入了特定于云平台的控制逻辑。 云控制器管理器（Cloud Controller Manager）允许将你的集群连接到云提供商的 API 之上， 并将与该云平台交互的组件同与你的集群交互的组件分离开来。
    cloud-controller-manager 仅运行特定于云平台的控制器。 因此如果你在自己的环境中运行 Kubernetes，或者在本地计算机中运行学习环境， 所部署的集群不包含云控制器管理器。
 
-### 1.1.2 Worker Plane Components
+#### 1.1.1.2 Worker Plane Components
 1. kubelet
 
    kubelet 会在集群中每个节点（node）上运行。 它保证容器（containers）都运行在 Pod 中， 负责维持容器的生命周期，同时也负责 Volume（CVI）和网络（CNI）的管理；
@@ -53,9 +57,33 @@
    这个基础组件使 Kubernetes 能够有效运行容器。 它负责管理 Kubernetes 环境中容器的执行和生命周期。
    Kubernetes 支持许多容器运行环境，例如 containerd、 CRI-O 以及 Kubernetes CRI (容器运行环境接口) 的其他任何实现。
 
-### 1.1.3 Addons
+#### 1.1.1.3 Addons
 插件使用 Kubernetes 资源（DaemonSet、 Deployment 等）实现集群功能。 因为这些插件提供集群级别的功能，插件中命名空间域的资源属于 kube-system 命名空间。
 可用插件的完整列表， 请参见[插件（Addons）](https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/addons/)。
+
+---
+
+## 1.2 Kubernetes对象
+在 Kubernetes 系统中，Kubernetes 对象是持久化的实体。 Kubernetes 使用这些实体去表示整个集群的状态。 具体而言，它们描述了如下信息：
+- 哪些容器化应用正在运行（以及在哪些节点上运行）
+- 可以被应用使用的资源
+- 关于应用运行时行为的策略，比如重启策略、升级策略以及容错策略
+
+几乎每个 Kubernetes 对象包含两个嵌套的对象字段，它们负责管理对象的配置： 对象 spec（规约） 和对象 status（状态）。 对于具有 spec 的对象，你必须在创建对象时设置其内容，描述你希望对象所具有的特征： 期望状态（Desired State）。
+
+例如，Kubernetes 中的 Deployment 对象能够表示运行在集群中的应用。 当创建 Deployment 时，你可能会设置 Deployment 的 spec，指定该应用要有 3 个副本运行。 Kubernetes 系统读取 Deployment 的 spec， 并启动我们所期望的应用的 3 个实例 —— 更新状态以与规约相匹配。 如果这些实例中有的失败了（一种状态变更），Kubernetes 系统会通过执行修正操作来响应 spec 和 status 间的不一致 —— 意味着它会启动一个新的实例来替换。
+
+
+***必需字段***
+
+在想要创建的 Kubernetes 对象所对应的清单（YAML 或 JSON 文件）中，需要配置的字段如下：
+- apiVersion - 创建该对象所使用的 Kubernetes API 的版本
+- kind - 想要创建的对象的类别
+- metadata - 帮助唯一标识对象的一些数据，包括一个 name 字符串、UID 和可选的 namespace
+- spec - 你所期望的该对象的状态
+
+对每个 Kubernetes 对象而言，其 spec 之精确格式都是不同的，包含了特定于该对象的嵌套字段。
+具体信息，参考[Kubernetes API 参考](https://kubernetes.io/zh-cn/docs/reference/kubernetes-api/)
 
 ---
 
